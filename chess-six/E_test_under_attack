@@ -1,0 +1,79 @@
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[0][0] = Rook(WHITE)
+board.field[1][2] = Bishop(WHITE)
+coords = ((0, 0), (1, 2))
+for row in range(7, -1, -1):
+    for col in range(8):
+        if (row, col) in coords:
+            print("W", end=" ")
+        elif board.is_under_attack(row, col, WHITE):
+            print("x", end=" ")
+        else:
+            print("-", end=" ")
+    print()
+
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[0][5] = Rook(WHITE)
+board.field[1][2] = Bishop(WHITE)
+board.field[7][6] = Knight(WHITE)
+coords = ((0, 5), (1, 2), (7, 6))
+for row in range(7, -1, -1):
+    for col in range(8):
+        if (row, col) in coords:
+            print('W', end=' ')
+        elif board.is_under_attack(row, col, WHITE):
+            print('x', end=' ')
+        else:
+            print('-', end=' ')
+    print()
+
+
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[0][5] = Rook(WHITE)
+board.field[1][2] = Bishop(WHITE)
+board.field[7][6] = Knight(BLACK)
+w_coords = ((0, 5), (1, 2))
+b_coords = ((7, 6), )
+print('White')
+for row in range(7, -1, -1):
+    for col in range(8):
+        if (row, col) in w_coords:
+            print('W', end=" ")
+        elif board.is_under_attack(row, col, WHITE):
+            print('x', end=' ')
+        else:
+            print('-', end=' ')
+    print()
+print()
+
+print('Black')
+board.color = BLACK
+for row in range(7, -1, -1):
+    for col in range(8):
+        if (row, col) in b_coords:
+            print('B', end=' ')
+        elif board.is_under_attack(row, col, BLACK):
+            print('x', end=' ')
+        else:
+            print('-', end=' ')
+    print()
+
+
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[0][5] = Pawn(WHITE)
+board.field[1][2] = Bishop(WHITE)
+board.field[7][6] = Knight(WHITE)
+coords = ((0, 5), (1, 2), (7, 6))
+for row in range(7, -1, -1):
+    for col in range(8):
+        if (row, col) in coords:
+            print('W', end=' ')
+        elif board.is_under_attack(row, col, WHITE):
+            print('x', end=' ')
+        else:
+            print('-', end=' ')
+    print()

@@ -1,0 +1,51 @@
+def main():
+    # Создаём доску
+
+    board = Board()
+
+    # Цикл ввода команд игроков
+    while True:
+        # переменная используемая в проверке на наличие ошибки
+        global is_incorrect_coords
+        global is_move_success
+        # Выводим доску
+        print_board(board)
+        if is_incorrect_coords:
+            print('Координаты некорректы! Попробуйте другой ход!')
+        elif is_move_success:
+            print('Ход успешен!')
+        is_incorrect_coords = False
+        # Подсказка по командам
+        print('Команды:')
+        print('    exit                               -- выход')
+        print('    <coord1> <coord2>                  -- ход из клетки (coord1) в клетку (coord2)')
+        print('    \'castle_left\' or \'castle_right\'    -- рокировка слева или справа')
+        print('Example:\n    a2 a3  or  castle_left')
+
+        # Выводим чей ход
+        if board.current_player_color() == WHITE:
+            print('\033[36mХод белых: \033[0m\n    ', end='')
+        else:
+            print('\033[36mХод чёрных: \033[0m\n    ', end='')
+
+        # если написали exit
+        command = input()
+        if command == 'exit' or command == 'эксит':
+            break
+
+        # распарсить координаты или вывести рокировку
+        if not (command == 'castle_left' and command == 'castle_right'):
+            row, col, row1, col1 = parse_coords(command)
+            if board.move_piece(row, col, row1, col1) and not is_incorrect_coords:
+                is_move_success = True
+            else:
+                is_incorrect_coords = True
+        elif command == 'castle_left':
+            pass  # TODO
+        elif command == 'castle_right':
+            pass  # TODO
+        else:
+            is_incorrect_coords = True
+
+
+main()

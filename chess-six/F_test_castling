@@ -1,0 +1,96 @@
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+
+board.field[0][0] = Rook(WHITE)
+board.field[0][4] = King(WHITE)
+board.field[0][7] = Rook(WHITE)
+
+board.field[7][0] = Rook(BLACK)
+board.field[7][4] = King(BLACK)
+board.field[7][7] = Rook(BLACK)
+
+print('Before')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+print()
+
+print("Рокировка")
+print(board.castling0())
+print(board.castling7())
+
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+
+
+
+
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[0][0] = Rook(WHITE)
+board.field[0][4] = King(WHITE)
+board.field[0][7] = Rook(WHITE)
+board.field[7][0] = Rook(BLACK)
+board.field[7][4] = King(BLACK)
+board.field[7][7] = Rook(BLACK)
+print('before')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+print()
+
+print('Сдвиги ладей')
+board.move_piece(0, 0, 0, 1)
+board.move_piece(7, 0, 7, 1)
+print(board.castling0())
+print(board.castling7())
+
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+print()
+
+print(board.castling0())
+print(board.castling7())
+
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+
+
+
+
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[0][0] = Knight(WHITE)
+board.field[0][4] = King(WHITE)
+board.field[0][7] = Knight(WHITE)
+board.field[7][0] = Knight(BLACK)
+board.field[7][4] = King(BLACK)
+board.field[7][7] = Knight(BLACK)
+print('before')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+print()
+print('Вместо ладей кони')
+print(board.castling0())
+print(board.castling7())
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
