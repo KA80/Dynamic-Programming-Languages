@@ -1,0 +1,42 @@
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[6][5] = Pawn(WHITE)
+print('before')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+print()
+
+board.promotion (6, 5, 7, 5, 'N')
+
+print('after')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+
+
+
+board = Board()
+board.field = [([None] * 8) for i in range(8)]
+board.field[6][3] = Pawn(WHITE)
+board.field[7][4] = Rook(BLACK)
+print('before')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
+print()
+
+board.promotion(6, 3, 7, 4, 'N')
+
+print('after')
+for row in range(7, -1, -1):
+    for col in range(8):
+        char = board.cell(row, col)[1]
+        print(char.replace(' ', '-'), end=' ')
+    print()
