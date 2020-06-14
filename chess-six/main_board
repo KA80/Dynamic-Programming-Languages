@@ -7,20 +7,41 @@ def main():
     while True:
         # переменная используемая в проверке на наличие ошибки
         global is_incorrect_coords
-        global is_move_success
+        global is_cast_not_done
+        global is_begin_of_game
+        global is_check
+        global is_mate
+        global is_stalemate
         # Выводим доску
         print_board(board)
         if is_incorrect_coords:
             print('Координаты некорректы! Попробуйте другой ход!')
-        elif is_move_success:
+        elif is_cast_not_done:
+            print('Рокировка неудачна, попробуйте другой ход')
+        elif not is_begin_of_game:
             print('Ход успешен!')
+        else:
+            is_begin_of_game = False
+
+        if is_stalemate:
+            print('ПАТ!')
+            break
+
+        if is_mate:
+            print('МАТ!')
+            break
+
+        if is_check:
+            print('ШАХ!')
+
+        is_cast_not_done = False
         is_incorrect_coords = False
         # Подсказка по командам
         print('Команды:')
         print('    exit                               -- выход')
         print('    <coord1> <coord2>                  -- ход из клетки (coord1) в клетку (coord2)')
-        print('    \'castle_left\' or \'castle_right\'    -- рокировка слева или справа')
-        print('Example:\n    a2 a3  or  castle_left')
+        print('    \'cast_left\' or \'cast_right\'    -- рокировка слева или справа')
+        print('Example:\n    a2 a3  or  cast_left')
 
         # Выводим чей ход
         if board.current_player_color() == WHITE:
@@ -34,18 +55,38 @@ def main():
             break
 
         # распарсить координаты или вывести рокировку
-        if not (command == 'castle_left' and command == 'castle_right'):
+        if command != 'cast_left' and command != 'cast_right':
             row, col, row1, col1 = parse_coords(command)
-            if board.move_piece(row, col, row1, col1) and not is_incorrect_coords:
-                is_move_success = True
+            if is_check:
+                if not isinstance(board.get_piece(row, col), King) or not board.get_piece(row, col).color == board. \
+                        current_player_color() or board.is_under_attack(row1, col1,
+                                                                        opponent(board.current_player_color())) \
+                        or not board.move_piece(row, col, row1, col1):
+                    is_incorrect_coords = True
             else:
-                is_incorrect_coords = True
-        elif command == 'castle_left':
-            pass  # TODO
-        elif command == 'castle_right':
-            pass  # TODO
+                if not board.move_piece(row, col, row1, col1):
+                    is_incorrect_coords = True
+        elif command == 'cast_left':
+            if not board.castling0():
+                is_cast_not_done = True
+        elif command == 'cast_right':
+            if not board.castling7():
+                is_cast_not_done = True
         else:
             is_incorrect_coords = True
+
+        is_check = False
+        is_mate = False
+        is_stalemate = False
+
+        if board.check():
+            is_check = True
+
+        if board.mate():
+            is_mate = True
+
+        if board.stalemate():
+            is_stalemate = True
 
 
 main()
