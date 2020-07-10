@@ -14,31 +14,28 @@ class KFC_Widget(QMainWindow):
         self.pushButton_accept.clicked.connect(self.calculate)
 
     def calculate(self):
-        self.spinBoxes = [self.spinBox_potato, self.spinBox_milkshake, self.spinBox_strips, self.spinBox_twister,
-                          self.spinBox_boxmaster]
-        self.checkBoxes = [self.checkBox_potato, self.checkBox_milkshake, self.checkBox_strips, self.checkBox_twister,
-                          self.checkBox_boxmaster]
-        self.totalCost = 0
-        self.text = ''
-        self.is_empty = True
+        self.__spinBoxes = [self.spinBox_potato, self.spinBox_milkshake, self.spinBox_strips, self.spinBox_twister,
+                            self.spinBox_boxmaster]
+        self.__checkBoxes = [self.checkBox_potato, self.checkBox_milkshake, self.checkBox_strips, self.checkBox_twister,
+                             self.checkBox_boxmaster]
+        self.__totalCost = 0
+        self.__text = ''
 
-        self.text += '\t\t КАССОВЫЙ ЧЕК \n\n'
+        self.__text += '\t\t КАССОВЫЙ ЧЕК \n\n'
 
         for i in range(self.goods):
-            if self.spinBoxes[i].value != 0 and self.checkBoxes[i].isChecked():
-                self.is_empty = False
-                self.text += self.checkBoxes[i].text() + '\n\t\t\t\t' + str(self.spinBoxes[i].value()) + '*' + self.goodCost[i] + '\n'
-                self.text += '\t\t\t\t=' + str(self.spinBoxes[i].value() * int(self.goodCost[i])) + '\n\n'
-                self.text += '################################################\n'
-                self.totalCost += self.spinBoxes[i].value() * int(self.goodCost[i])
-        if self.is_empty:
-            self.check.setPlainText('')
+            if self.__spinBoxes[i].value != 0 and self.__checkBoxes[i].isChecked():
+                self.__text += self.__checkBoxes[i].text() + '\n\t\t\t\t' + str(self.__spinBoxes[i].value()) + '*' + \
+                               self.goodCost[i] + '\n'
+                self.__text += '\t\t\t\t=' + str(self.__spinBoxes[i].value() * int(self.goodCost[i])) + '\n\n'
+                self.__text += '################################################\n'
+                self.__totalCost += self.__spinBoxes[i].value() * int(self.goodCost[i])
+
+        if self.__totalCost > 0:
+            self.__text += '\n\nИТОГ:\t\t\t\t=' + str(self.__totalCost)
+            self.check.setPlainText(self.__text)
         else:
-            self.text += '\n\nИТОГ:\t\t\t=' + str(self.totalCost)
-            self.check.setPlainText(self.text)
-
-
-
+            self.check.setPlainText('')
 
 
 app = QApplication(sys.argv)
