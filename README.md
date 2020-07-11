@@ -10,5 +10,5 @@
 * fifth - OOP
 * sixth - chess
 * seventh - PyQT
-* eighth - PyQT
+* eighth - PyQT, SQLite
 * ninth - PyGame
